@@ -1,6 +1,6 @@
 APP_PATH= .
 INC_PATH= 	$(APP_PATH) \
-			#/mb/libs/gtest-1.6.0/include
+			/Users/rogerlee/dev/libs/boost_1_52_0
 			#$(HOME)/dfs/ThirdLibs/gtest1.6/include
 
 LIB_PATH= 	\
