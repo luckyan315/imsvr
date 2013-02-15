@@ -1,3 +1,7 @@
+/*
+ * File     :  TextureContainer.cpp
+ * Descript :  纹理容器类， 从多个图片路径中载入数据到D3D的纹理对象容器中。
+ */
 #include "StdAfx.h"
 #include "TextureContainer.h"
 
@@ -15,6 +19,9 @@ TextureContainer::~TextureContainer(void)
 }
 
 
+/*
+ *  判断给定路径的纹理是否存在与纹理容器中
+ */
 bool TextureContainer::IsExist(std::string & path)
 {
     TextureCollection::iterator it = std::find(m_data.begin(), m_data.end(), path);
@@ -24,6 +31,9 @@ bool TextureContainer::IsExist(std::string & path)
     }
     return false;
 }
+/*
+ *  删除纹理容器内的所有纹理对象
+ */
 void TextureContainer::Clear()
 {
     TexturePtrCollection::iterator it = m_textures.begin();
@@ -34,6 +44,11 @@ void TextureContainer::Clear()
     m_textures.clear();
     m_data.clear();
 }
+/*
+ * Param[in] path  一些图片所在的路径（绝对路径或者相对路径）
+ * Return    void
+ * Descript        输入图片路径，载入所有图片数据到纹理容器中
+ */
 void TextureContainer::Set(std::vector<std::string> & path)
 {
     if(m_data.size() > 0)
@@ -46,6 +61,11 @@ void TextureContainer::Set(std::vector<std::string> & path)
     }
 }
 
+/*
+ *  Param[in]   图片路径
+ *  Return  void
+ *  Descript    添加一个指定路径的图片到纹理容器中
+ */
 void TextureContainer::Append(std::string &path)
 {
     if(IsExist(path) == false) 
@@ -60,6 +80,11 @@ void TextureContainer::Append(std::string &path)
         m_data.push_back(path);
     }
 }
+/*
+ *  Param[in] 图片路径
+ *  Return  void
+ *  Descript   从纹理容器中删除指定路径的纹理信息
+ */
 void TextureContainer::Remove(std::string & path)
 {
     size_t sz = m_data.size();
