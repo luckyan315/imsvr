@@ -5,28 +5,7 @@
 #include <stdio.h>
 #include <cassert>
 
-//#include "log.h"
-
 #include "AcquireExecutionTime.h"
-/*
-#define MAX_BMP_LEN  36
-LPD3DXSPRITE g_Sprite = NULL;
-LPDIRECT3DTEXTURE9 g_pTextures[MAX_BMP_LEN] ;
-
-
-static void CreateTexture9(LPDIRECT3DDEVICE9 pd3dDevice)
-{
-    char buf[128];
-    const char * fmt = "D:\\512Data\\IMAGE128_%d.bmp";
-    for( int i = 0; i < MAX_BMP_LEN; ++i)
-    {
-        sprintf(buf, fmt, i); 
-        D3DXCreateTextureFromFileEx(pd3dDevice, buf, 0, 0, 0, 0,
-            D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, D3DX_DEFAULT,
-            D3DX_DEFAULT , 0, NULL, NULL, g_pTextures + i);
-    }
-}*/
-
 
 
 CMyDirect::CMyDirect(HWND hWnd, UINT adapterID)

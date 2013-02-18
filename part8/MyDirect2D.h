@@ -25,9 +25,6 @@ public:
 
 	void SetSyncOutputWnd(LPVOID lpWnd){m_lpSyncWnd=lpWnd;};
 
-    //Will remove to the MyDirect
-
-
 protected:
     void CleanupMe();
 

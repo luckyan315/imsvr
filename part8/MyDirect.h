@@ -1,3 +1,6 @@
+/*
+ *  Descript：  
+ */
 #ifndef MY_DIRECT_H
 #define MY_DIRECT_H
 
@@ -17,17 +20,10 @@ public:
     virtual ~CMyDirect(void);
 
 
-
-
     virtual HRESULT InitD3D(BOOL defaultWindowed = TRUE);
-    
-
     virtual void OnDeviceInited();
-    
-
     virtual void OnDeviceLost();
     virtual void OnRender2D();
-
     
 
     void Cleanup();
@@ -47,8 +43,6 @@ public:
 protected:
        void CleanupMe();
 
-protected:
-
     UINT m_adapterID;
     HWND            m_hWnd;     //ref
     D3DPRESENT_PARAMETERS   m_d3dpp; // local var
@@ -56,8 +50,5 @@ protected:
     LPDIRECT3D9     m_pD3D;     // pointer need to free
     LPDIRECT3DDEVICE9       m_pd3dDevice; //pointer need to free
 };
-
-void CreateTexture9(LPDIRECT3DDEVICE9 pd3dDevice);
-
 #endif
 
