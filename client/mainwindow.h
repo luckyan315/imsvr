@@ -18,7 +18,7 @@ public:
     ~MainWindow();
     
 protected slots:
-    void onLoginSuccess(const std::string ip, const std::string port);
+    void onLoginSuccess(const std::string& ip, const std::string& port);
 
 private slots:
     void on_btnSend_clicked();

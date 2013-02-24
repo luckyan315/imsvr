@@ -12,13 +12,16 @@ public:
 
 private:
     void initialize();
-    bool isValidIpAddr(const std::string ip, const std::string port) const;
+    bool isValidIpAddr(const std::string& ip, const std::string& port) const;
 
 signals:
-    void loginSuccessEvent(const std::string ip, const std::string port);
+    void loginSuccessEvent(const std::string& ip, const std::string& port);
+    void loginWindowDestroy();
 
 private slots:
     void on_pushButton_clicked();
+
+    void on_LoginDialog_destroyed();
 
 private:
     QWidget*     m_parent;

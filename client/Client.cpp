@@ -8,13 +8,21 @@
 Client::Client(const char *ip, const char *port):
     m_ioservice(*new boost::asio::io_service()), m_sock(m_ioservice)
 {
-    tcp::resolver _resolver(m_ioservice);
-    tcp::resolver::query query(tcp::v4(), ip, port);
-    tcp::resolver::iterator _iterator = _resolver.resolve(query);
+    try
+    {
+        tcp::resolver _resolver(m_ioservice);
+        tcp::resolver::query query(tcp::v4(), ip, port);
+        tcp::resolver::iterator _iterator = _resolver.resolve(query);
 
-    boost::asio::async_connect(m_sock, _iterator,
-        boost::bind(&Client::handleConnect, this,
-          boost::asio::placeholders::error));
+        boost::asio::async_connect(m_sock, _iterator,
+            boost::bind(&Client::handleConnect, this,
+              boost::asio::placeholders::error));
+    }
+    catch(std::exception& e)
+    {
+        std::cerr << "Exception: " << e.what() << "\n";
+    }
+
     Run();
 }
 
