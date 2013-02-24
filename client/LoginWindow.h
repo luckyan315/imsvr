@@ -16,12 +16,10 @@ private:
 
 signals:
     void loginSuccessEvent(const std::string& ip, const std::string& port);
-    void loginWindowDestroy();
 
 private slots:
     void on_pushButton_clicked();
 
-    void on_LoginDialog_destroyed();
 
 private:
     QWidget*     m_parent;

@@ -28,7 +28,6 @@ void MainWindow::initialize()
     //TODO: init widgets
     connect(m_pLogin, SIGNAL(loginSuccessEvent(std::string, std::string)),
             this, SLOT(onLoginSuccess(std::string, std::string)));
-    connect(m_pLogin, SIGNAL(loginWindowDestroy()), this, SLOT(deleteLater()));
 }
 
 void MainWindow::onLoginSuccess(const std::string& ip, const std::string& port)

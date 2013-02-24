@@ -45,8 +45,3 @@ bool LoginWindow::isValidIpAddr(const std::string& ip, const std::string& port) 
     std::cout<<"ip:"<<ip<<" port:" <<port<<std::endl;
     return true;
 }
-
-void LoginWindow::on_LoginDialog_destroyed()
-{
-    destroyed(m_parent);
-}
