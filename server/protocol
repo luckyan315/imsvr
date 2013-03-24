@@ -1,0 +1,38 @@
+Part 1:
+0. msg-length:          0100
+1. sender:              10000 \r\n
+2. to:                  20000 \r\n
+3. reply:               10000 \r\n
+
+MIME-Version: 1.0
+Content-type:multipart/alternative
+separator :  
+4. content-type:        text  \r\n
+5. content-encoding:    utf-8 \r\n
+6. content-length:      1234  \r\n
+7. content:             hello world XXXX chinese word  \r\n
+8. validation:          MD5  \r\n \r\n
+separator :  
+
+Part 2:
+
+1. encry:               Y/N
+2. encry method:        AES
+3. encry key:           public key
+
+
+
+
+
+Simple protocol(V0.1)
+seq     name                example                 separator
+0       msg-length          1000                    \r\n
+1.      sender              100001                  \r\n
+2.      to                  200001                  \r\n
+3.      reply               100001                  \r\n
+4.      content-type        text                    \r\n
+5.      content-encoding    utf-8                   \r\n
+6.      content-length      sizeof(content)         \r\n
+7.      content             base64(hello world  )   \r\n
+8.      validation          MD5                     \r\n
+9.      ending              \r\n
