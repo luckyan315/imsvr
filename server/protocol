@@ -3,7 +3,6 @@ Part 1:
 1. sender:              10000 \r\n
 2. to:                  20000 \r\n
 3. reply:               10000 \r\n
-
 MIME-Version: 1.0
 Content-type:multipart/alternative
 separator :  
@@ -24,15 +23,12 @@ Part 2:
 
 
 
-Simple protocol(V0.1)
-seq     name                example                 separator
-0       msg-length          1000                    \r\n
-1.      sender              100001                  \r\n
-2.      to                  200001                  \r\n
-3.      reply               100001                  \r\n
-4.      content-type        text                    \r\n
-5.      content-encoding    utf-8                   \r\n
-6.      content-length      sizeof(content)         \r\n
-7.      content             base64(hello world  )   \r\n
-8.      validation          MD5                     \r\n
-9.      ending              \r\n
+Simple text protocol(V0.1)
+seq     name                width       example                 
+0       msg-length          n4          1000                    
+1.      sender              n10         100001                  
+2.      to                  n10         200001                  
+3.      reply               n10         100001                  
+5.      send-time           n14         20130303121234
+6.      content-length      n4          sizeof(content)         
+7.      content             xxx         base64(hello world  )   
