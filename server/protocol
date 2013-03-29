@@ -25,10 +25,10 @@ Part 2:
 
 Simple text protocol(V0.1)
 seq     name                width       example                 
-0       msg-length          n4          1000                    
-1.      sender              n10         100001                  
-2.      receiver            n10         200001                  
-3.      reply               n10         100001                  
-5.      send-time           n14         20130303121234
-6.      content-length      n4          sizeof(content)         
-7.      content             xxx         base64(hello world  )   
+0       msg-length          n4          1000                    [0, 4)
+1.      sender              n10         100001                  [4, 14)
+2.      receiver            n10         200001                  [14, 24)
+3.      reply               n10         100001                  [24, 34)
+5.      send-time           n14         20130303121234          [34, 48)
+6.      content-length      n4          sizeof(content)         [48 52)
+7.      content             xxx         base64(hello world  )   [52, 52+content-length)
