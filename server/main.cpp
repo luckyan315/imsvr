@@ -32,24 +32,23 @@ void test_protocol()
         assert(strlen(buf) == ret);
         LOG_DEBUG("len(%d) buf to send: (%s)", ret, buf);
     }
+
+    ret = sp.Parse(buf, ret);
+    if(ret == 0)
+        sp.Print();
+    else
+        LOG_ERROR("parse msg failed!");
+
     delete buf; buf = NULL;
 }
 void test_parse(){
     SimpleProtocol sp;
     std::string  msg = "0058     10000     20000     10000201303031212340010Hello, man";
-    int ret = SimpleProtocol::Parse(msg.c_str(), msg.size(), sp);
+    int ret = sp.Parse(msg.c_str(), msg.size());
     if(ret == 0)
-    {
-        LOG_DEBUG("sender is:%s", sp.GetSender().c_str());    
-        LOG_DEBUG("receiver is :%s", sp.GetReceiver().c_str());    
-        LOG_DEBUG("reply to : %s", sp.GetReply().c_str());    
-        LOG_DEBUG("content is :%s", sp.GetContent().c_str());    
-        LOG_DEBUG("content len :%d", sp.GetContentLength());
-    }
+        sp.Print();
     else
-    {
         LOG_ERROR("parse msg failed!");
-    }
 }
 int main(int argc, char * argv[])
 {
