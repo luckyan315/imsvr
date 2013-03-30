@@ -7,7 +7,6 @@
 namespace imsvr{
 namespace protocol{
 
-
 class SimpleProtocol : public Protocol
 {
 public:

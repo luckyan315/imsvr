@@ -20,11 +20,11 @@ public:
     virtual int Parse(const char * buf, int cap) = 0;
 
 
-    void SetSender(const std::string sender);
-    void SetReceiver(const std::string receiver);
-    void SetReply(const std::string reply);
-    void SetSendTime(const std::string send_time);
-    void SetContent(const std::string content);
+    void SetSender(const std::string & sender);
+    void SetReceiver(const std::string & receiver);
+    void SetReply(const std::string & reply);
+    void SetSendTime(const std::string & send_time);
+    void SetContent(const std::string & content);
 
     const std::string & GetSender(){return m_sender;}
     const std::string & GetReceiver(){return m_receiver;}

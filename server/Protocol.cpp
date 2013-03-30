@@ -5,27 +5,27 @@
 namespace imsvr{
 namespace protocol{
 
-void Protocol::SetSender(std::string sender)
+void Protocol::SetSender(const std::string & sender)
 {
     if(sender != m_sender)
         m_sender = sender;
 }
-void Protocol::SetReceiver(std::string receiver)
+void Protocol::SetReceiver(const std::string & receiver)
 {
     if(receiver != m_receiver)
         m_receiver = receiver;
 }
-void Protocol::SetReply(std::string reply)
+void Protocol::SetReply(const std::string & reply)
 {
     if(reply != m_reply)
         m_reply = reply;
 }
-void Protocol::SetSendTime(std::string send_time)
+void Protocol::SetSendTime(const std::string  & send_time)
 {
     if(send_time != m_send_time)
         m_send_time = send_time;
 }
-void Protocol::SetContent(std::string content)
+void Protocol::SetContent(const std::string & content)
 {
     if(content != m_content)
         m_content = content;

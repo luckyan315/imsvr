@@ -1,7 +1,9 @@
-#include "Log.h"
-#include "SimpleProtocol.h"
 #include <cassert>
 #include <cstring>
+
+#include "Log.h"
+#include "SimpleProtocol.h"
+#include "SessionManager.h"
 
 /*  
 using namespace boost::asio;
@@ -18,11 +20,11 @@ using namespace imsvr::protocol;
 void test_protocol()
 {
     SimpleProtocol sp;
-    sp.SetSender("10000");
+    sp.SetSender(std::string("10000"));
     sp.SetReceiver("20000");
     sp.SetReply("10000");
     sp.SetSendTime("20130303121234");
-    sp.SetContent("Hello, man I am a good programmer !\r\n\r\n");
+    sp.SetContent(std::string("Hello, man I am a good programmer !\r\n\r\n"));
     
     char * buf = new char [SimpleProtocol::MAX_MSG_LEN];
     memset(buf, 0, sizeof(char)*SimpleProtocol::MAX_MSG_LEN);
@@ -50,9 +52,20 @@ void test_parse(){
     else
         LOG_ERROR("parse msg failed!");
 }
+using namespace imsvr::server;
+void test_session_manager()
+{
+    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0001")));
+    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0001")));
+    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0001")));
+    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0004")));
+    SessionManager::Instance()->Print();
+}
 int main(int argc, char * argv[])
 {
-    test_protocol();
-    test_parse();
+    // test_protocol();
+    // test_parse();
+
+    test_session_manager();
     return 0;
 }
