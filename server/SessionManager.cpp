@@ -1,7 +1,9 @@
 #include "SessionManager.h"
 
 #include <utility>
+
 #include "Log.h"
+
 
 namespace imsvr{
 namespace server{
@@ -42,6 +44,16 @@ void SessionManager::Clear()
 void SessionManager::Print()
 {
     LOG_DEBUG("session count %d", m_seses.size());
+}
+Session::PtrType SessionManager::FindSession(Session::PtrType ses)
+{
+    assert(ses != NULL);
+    Container::iterator it = m_seses.find(ses->GetID());
+    if(it != m_seses.end())
+    {
+        return it->second;
+    }
+    return Session::PtrType();
 }
 
 } /*  namespace server */

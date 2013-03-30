@@ -4,17 +4,8 @@
 #include "Log.h"
 #include "SimpleProtocol.h"
 #include "SessionManager.h"
+#include "Server.h"
 
-/*  
-using namespace boost::asio;
-void test_server()
-{
-    const int port = 5800;
-    io_service ios;
-    Server s(ios, port);
-    s.Run();
-    ios.run();
-}*/
 
 using namespace imsvr::protocol;
 void test_protocol()
@@ -52,20 +43,23 @@ void test_parse(){
     else
         LOG_ERROR("parse msg failed!");
 }
-using namespace imsvr::server;
 void test_session_manager()
 {
-    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0001")));
-    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0001")));
-    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0001")));
-    SessionManager::Instance()->AddSession(Session::PtrType(new Session("0004")));
-    SessionManager::Instance()->Print();
+}
+
+void test_server()
+{
+    const int port = 5800;
+    boost::asio::io_service ios;
+    imsvr::server::Server s(ios, port);
+    s.Run();
+    ios.run();
 }
 int main(int argc, char * argv[])
 {
-    // test_protocol();
-    // test_parse();
-
-    test_session_manager();
+// test_protocol();
+// test_parse();
+//    test_session_manager();
+    test_server();
     return 0;
 }

@@ -1,26 +1,12 @@
 #ifndef  SESSIONMANAGER_H
 #define  SESSIONMANAGER_H
 
-#include <boost/shared_ptr.hpp>
 #include <map>
+#include "Session.h"
 
 namespace imsvr{
 namespace server{
 
-
-class Session
-{
-public:
-    typedef boost::shared_ptr<Session> PtrType;
-    typedef std::string IDType;
-
-    Session(IDType id):m_id(id){}
-    ~Session(){}
-    const IDType GetID(){ return m_id;}
-    void SetID(IDType & id) {if(m_id != id) m_id = id;}
-private:
-    IDType m_id;
-};
 
 class SessionManager
 {
@@ -33,6 +19,8 @@ static SessionManager * Instance();
     void RemoveSession(const Session::IDType & id);
     void RemoveSession(Session::PtrType ses);
     void Clear();
+
+    const int size() {return m_seses.size();}
 
     void Print();
 
