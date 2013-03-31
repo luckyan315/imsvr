@@ -24,7 +24,7 @@ static SessionManager * Instance();
 
     void Print();
 
-    Session::PtrType FindSession(Session::PtrType ses);//TODO:
+    Session::PtrType FindSession(const Session::IDType & id);
 
 protected:
     SessionManager (){}

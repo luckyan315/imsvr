@@ -45,10 +45,9 @@ void SessionManager::Print()
 {
     LOG_DEBUG("session count %d", m_seses.size());
 }
-Session::PtrType SessionManager::FindSession(Session::PtrType ses)
+Session::PtrType SessionManager::FindSession(const Session::IDType & id)
 {
-    assert(ses != NULL);
-    Container::iterator it = m_seses.find(ses->GetID());
+    Container::iterator it = m_seses.find(id);
     if(it != m_seses.end())
     {
         return it->second;

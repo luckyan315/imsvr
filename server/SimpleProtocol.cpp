@@ -53,7 +53,7 @@ int SimpleProtocol::Parse(const char * buf, int sz)
     SetSendTime(std::string(buf + 34, buf + 48));
 
     len = boost::lexical_cast<int>(std::string(buf + 48, buf + 52));
-    if(len != sz - 52)
+    if(len != sz - 48)
         return ERR_INVALID_MSG_CONTENT;
 
     SetContent(std::string(buf + 52 , buf + 52 + len));

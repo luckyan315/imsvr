@@ -14,8 +14,8 @@ public:
     SimpleProtocol (){}
     ~SimpleProtocol (){}
 
-    int Building(char * buf, int cap);
-    int Parse(const char * buf, int cap);
+    virtual int Building(char * buf, int cap);
+    virtual int Parse(const char * buf, int cap);
 
     const int GetHeadLength() const {return HEAD_LEN;}
     const int GetMaxMsgLength()const {return MAX_MSG_LEN;}
