@@ -11,11 +11,11 @@ class Util
 {
 public:
     static int toInt(const char * start, const char * end);
-    static std::string trimEnd(std::string &str);
+    static std::string trimEnd(const std::string &str);
 
     static std::string GetDateTimeString();
     static void GetDateTimeString(std::string & date_time);
-    static int GetDateTimeString(char * buf, int sz);
+    static int GetDateTimeString(char * buf, const int sz);
 };
 
 } /*  namespace server */

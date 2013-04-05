@@ -7,11 +7,17 @@
 #include "SimpleProtocol.h"
 #include "Util.h"
 
+
+#define SERVER_ID       "9999990000"
+#define LOGIN_MSG       "LOGIN"
+#define LOGOUT_MSG      "LOGOUT"
+
 namespace imsvr{
 namespace server{
 
 Session::Session(boost::asio::io_service & ios, const IDType & id)
     :m_id(id)
+    ,m_status(NewConnected)
     , m_ios(ios), m_sock(ios)
     , m_read_buf(new char[MAX_BUF_SZ]), m_write_buf(new char[MAX_BUF_SZ])
     , m_read_ptr(0)
@@ -34,7 +40,7 @@ void Session::Run()
     boost::asio::async_read(m_sock, 
         boost::asio::buffer(m_read_buf, MAX_BUF_SZ*sizeof(char)),
         boost::asio::transfer_exactly(4),
-        boost::bind(&Session::HandleRead, this,
+        boost::bind(&Session::HandleRead, shared_from_this(),
         boost::asio::placeholders::error,
         boost::asio::placeholders::bytes_transferred));
 }
@@ -47,7 +53,7 @@ void Session::Send(const char * buf, size_t sz)
 
     boost::asio::async_write(m_sock,
             boost::asio::buffer(m_write_buf, sz),
-            boost::bind(&Session::HandleWrite, this,
+            boost::bind(&Session::HandleWrite, shared_from_this(),
                 boost::asio::placeholders::error));
 }
 
@@ -58,7 +64,7 @@ void Session::HandleRead(const boost::system::error_code & error
     if(error != 0 || bytes_transferred == 0)
     {
         LOG_DEBUG("Got en error when read data");
-        SessionManager::Instance()->RemoveSession(m_id);
+        SessionManager::Instance()->RemoveSession(shared_from_this());
         return ;
     }
 
@@ -66,13 +72,13 @@ void Session::HandleRead(const boost::system::error_code & error
     {
         LOG_DEBUG("Continue Read data is :[%s], bytes_transferred (%zd)", m_read_buf, bytes_transferred);
         int len = imsvr::common::Util::toInt(m_read_buf, m_read_buf + 4);
-        LOG_DEBUG("len is %d", len);
+        LOG_DEBUG("New Read msg Len is %d", len);
         if(len > 0)
         {
             boost::asio::async_read(m_sock, 
                 boost::asio::buffer(m_read_buf + 4, MAX_BUF_SZ*sizeof(char)),
                 boost::asio::transfer_exactly(len),
-                boost::bind(&Session::HandleRead, this,
+                boost::bind(&Session::HandleRead, shared_from_this(),
                 boost::asio::placeholders::error,
                 boost::asio::placeholders::bytes_transferred));
             m_read_ptr += 4;
@@ -88,13 +94,7 @@ void Session::HandleRead(const boost::system::error_code & error
 #if 1
         if( 0 == m_proto->Parse(m_read_buf, bytes_transferred))
         {
-            SessionManager * sm = SessionManager::Instance();
-            std::string id = m_proto->GetReceiver();
-            Session::PtrType pses = sm->FindSession(imsvr::common::Util::trimEnd(id));
-            if(pses != NULL)
-                pses->Send(m_read_buf, bytes_transferred+4); 
-            else
-                LOG_DEBUG("cant not find the session, Id(%s)", m_proto->GetReceiver().c_str());
+            HandleMsg();
         }
         else
         {
@@ -115,7 +115,65 @@ void Session::HandleWrite(const boost::system::error_code & error)
     else
     {
         LOG_ERROR("Got an error when write data");
-        SessionManager::Instance()->RemoveSession(m_id);
+        SessionManager::Instance()->RemoveSession(shared_from_this());
+    }
+}
+void Session::HandleMsg()
+{
+    switch(m_status)
+    {
+        case NewConnected:
+            LOG_DEBUG("HandleMsg : New Connected");
+            HandleNewConnected();
+        break;
+        case Logged:
+            LOG_DEBUG("HandleMsg : Logged");
+            HandleLogged();
+        break;
+        case Logout:
+            LOG_DEBUG("HandleMsg : Logout");
+            HandleLogout();
+        break;
+        default:
+            LOG_ERROR("status error!");
+        break;
+    }
+}
+void Session::HandleLogged()
+{
+    LOG_DEBUG("Client login msg");
+    if(m_proto->GetReceiver() == SERVER_ID)
+    {
+        LOG_ERROR("Server Manager Command: no effect");
+    }
+    else
+    {
+        LOG_DEBUG("Client msg request sender %s recv %s", m_proto->GetSender().c_str(), m_proto->GetReceiver().c_str());
+        std::string id = imsvr::common::Util::trimEnd(m_proto->GetReceiver());
+        Session::PtrType pses = SessionManager::Instance()->FindSession(id);
+        if(pses != NULL)
+            pses->Send(m_read_buf, m_proto->GetMsgLength());
+        else
+            LOG_DEBUG("cant not find the session, Id(%s)", m_proto->GetReceiver().c_str());
+    }
+}
+void Session::HandleNewConnected()
+{
+    if(m_proto->GetReceiver() == SERVER_ID && m_proto->GetContent() == LOGIN_MSG)
+    {
+        LOG_DEBUG("Client call for login");
+        //TODO:Validate the id & password
+        SessionManager::Instance()->MoveSession(shared_from_this(), m_proto->GetSender());
+        m_status = Logged; 
+    }
+}
+void Session::HandleLogout()
+{
+    if(m_proto->GetReceiver() == SERVER_ID && m_proto->GetContent() == LOGOUT_MSG)
+    {
+        LOG_DEBUG("Client call for logout");
+        SessionManager::Instance()->RemoveSession(shared_from_this());
+        m_status = Logout;
     }
 }
 

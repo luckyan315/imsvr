@@ -20,14 +20,15 @@ int Util::toInt(const char * start, const char * end)
     }
     return len;
 }
-std::string Util::trimEnd(std::string &str)
+std::string Util::trimEnd(const std::string &str)
 {
     const std::string &delim =" " ;
-    std::string r = str.erase(str.find_last_not_of(delim)+1);
+    std::string r = str;
+    r = r.erase(r.find_last_not_of(delim)+1);
     return r.erase(0,r.find_first_not_of(delim));
 }
 //for performance
-int Util::GetDateTimeString(char * buf, int sz)
+int Util::GetDateTimeString(char * buf, const int sz)
 {
     assert(sz >= 15 && buf);
     time_t t;

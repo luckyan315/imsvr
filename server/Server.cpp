@@ -24,13 +24,8 @@ void Server::Run()
 {
     std::string id;
     IDGenerator::Next(id);
-
-    SessionManager * sm = SessionManager::Instance();
-    assert(sm);
-
-    LOG_DEBUG("online clients number is : [%d], next id[%s]", sm->size(), id.c_str());
+    LOG_DEBUG("Server is ready to accept client, and Next id[%s]", id.c_str());
     Session::PtrType pses(new Session(m_ios, id));
-    sm->AddSession(pses);
 
     m_acceptor.async_accept(pses->socket(), 
         boost::bind(&Server::handle_accept, this, pses, 
@@ -40,7 +35,10 @@ void Server::handle_accept(Session::PtrType pses, const boost::system::error_cod
 {
     if(!error)
     {
-        LOG_DEBUG("accept one client!");
+        SessionManager * sm = SessionManager::Instance();
+        LOG_DEBUG("Online size (%d), and accept one client!", sm->size());
+
+        sm->AddNewSession(pses);
         pses->Run();
     }
     Run();

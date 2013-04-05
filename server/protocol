@@ -32,3 +32,11 @@ seq     name                width       example
 5.      send-time           n14         20130303121234          [34, 48)
 6.      content-length      n4          sizeof(content)         [48 52)
 7.      content             xxx         base64(hello world  )   [52, 52+content-length)
+
+
+
+1. msg
+register client:
+    0053     100009999990000     10000201303031212340005LOGIN
+2. send normal msg
+0059     10000     10001     10000201303031212340011Hello world
