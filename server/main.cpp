@@ -55,11 +55,30 @@ void test_server()
     s.Run();
     ios.run();
 }
+#include "Util.h"
+void test_util()
+{
+    using namespace imsvr::common;
+    std::cout << Util::GetDateTimeString() << std::endl;
+}
+#include "IDGenerator.h"
+void test_id_gen()
+{
+    using namespace imsvr::common;
+    std::string id;
+    for(int i =0; i < 10000000; ++i)
+    {
+        IDGenerator::Next(id);
+        std::cout << id << std::endl;
+    }
+}
 int main(int argc, char * argv[])
 {
-// test_protocol();
-// test_parse();
+    test_server();    
+//    test_protocol();
+//    test_parse();
 //    test_session_manager();
-    test_server();
+//    test_util();
+//    test_id_gen();
     return 0;
 }
