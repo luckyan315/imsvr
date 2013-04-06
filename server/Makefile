@@ -1,10 +1,12 @@
 APP_PATH= .
 INC_PATH= 	$(APP_PATH) \
-			/Users/rogerlee/dev/libs/boost_1_52_0
+			$(HOME)/opt/inlucde
+			#/Users/rogerlee/dev/libs/boost_1_52_0
 			#$(HOME)/dfs/ThirdLibs/gtest1.6/include
 
 LIB_PATH= 	\
-			/Users/rogerlee/dev/libs/boost_1_52_0/bin.v2/libs/system/build/darwin-4.2.1/release/link-static/threading-multi
+			$(HOME)/opt/lib
+			#/Users/rogerlee/dev/libs/boost_1_52_0/bin.v2/libs/system/build/darwin-4.2.1/release/link-static/threading-multi
 			#/mb/libs/gtest-1.6.0/lib/.libs
 			#$(HOME)/dfs/ThirdLibs/gtest1.6/lib/.libs
 			#$(APP_PATH)/lib/ 

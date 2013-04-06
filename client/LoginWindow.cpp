@@ -24,8 +24,8 @@ void LoginWindow::initialize()
 
 void LoginWindow::on_pushButton_clicked()
 {
-    std::string strIp = textSvrIp->toPlainText().toLocal8Bit();
-    std::string strPort = textSvrPort->toPlainText().toLocal8Bit();
+    std::string strIp = textSvrIp->toPlainText().toLatin1().data();
+    std::string strPort = textSvrPort->toPlainText().toLatin1().data();
     if(!isValidIpAddr(strIp.c_str(), strPort.c_str())){
         //QMessageBox::information(this,tr("hello"),tr("hello"));
         std::cout<<"Invalid ip addr ("<<strIp<<":"<<strPort<<")"<<std::endl;

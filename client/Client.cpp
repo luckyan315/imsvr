@@ -3,7 +3,7 @@
 #include <boost/asio.hpp>
 #include <boost/thread/thread.hpp>
 
-#include "client.h"
+#include "Client.h"
 
 Client::Client(const char *ip, const char *port):
     m_ioservice(*new boost::asio::io_service()), m_sock(m_ioservice)

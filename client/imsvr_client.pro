@@ -9,9 +9,9 @@ QT       += core gui
 TARGET = imsvr_client
 TEMPLATE = app
 
-INCLUDEPATH += f:\code\boost_1_52_0
+INCLUDEPATH += $(HOME)/opt/include
 
-LIBS+= -LF:\code\boost_1_52_0\stage\lib\win32\vs10_0\ -llibboost_system-vc100-mt-gd-1_52 -llibboost_regex-vc100-mt-gd-1_52
+LIBS+= -L$(HOME)/opt/lib -lboost_system -lboost_regex -lboost_thread
 
 
 SOURCES += main.cpp\
