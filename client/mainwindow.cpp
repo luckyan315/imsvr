@@ -42,6 +42,6 @@ void MainWindow::onLoginSuccess(const std::string& ip, const std::string& port)
 
 void MainWindow::on_btnSend_clicked()
 {
-    std::string strSend = ui->textInput->toPlainText().toLocal8Bit();
+    std::string strSend = ui->textInput->toPlainText().toLatin1().data();
     m_pClient->send(strSend.c_str());
 }
